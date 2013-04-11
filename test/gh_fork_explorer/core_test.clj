@@ -1,7 +1,10 @@
 (ns gh-fork-explorer.core-test
   (:use clojure.test
-        gh-fork-explorer.core))
+        gh-fork-explorer.core
+        ring.mock.request)
+  (:require [gh-fork-explorer.handler :as web]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest app-routes-test
+  (testing "/"
+    (let [response (web/app (request :get "/"))]
+      (is (= (:status response) 200)))))
